@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-void swap_my ( int &e, & f );
+void swap_my ( int *a, int *b );
 
 void main () {
 
@@ -11,7 +11,7 @@ void main () {
     int *c;   
     int *d;
 
-    c = &b;
+/*    c = &b;
     printf ( "c = &b and = %d;\n", *c );  
 
     a = *c;
@@ -43,10 +43,18 @@ void main () {
 
     d = c;
     printf ( "*d = %d; d = %u;\n", *d, d );
+*/
+    c = &a;
+    d = &b;
+    printf ( "before swap c = %d, and d = %d;\n", *c, *d );
+    printf ( "before swap a = %d, and b = %d;\n\n", a, b );
+    swap_my ( &a, &b );
+    printf ( "after swap c = %d, and d = %d;\n", *c, *d );
+    printf ( "after swap a = %d, and b = %d;\n\n", a, b );
 
 }
 
-void swap ( int *first, int * second ) {
+void swap_my ( int *first, int * second ) {
 
     int temp = 0;
     temp = *first;
