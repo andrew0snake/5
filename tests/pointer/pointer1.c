@@ -48,7 +48,8 @@ void main () {
     d = &b;
     printf ( "before swap c = %d, and d = %d;\n", *c, *d );
     printf ( "before swap a = %d, and b = %d;\n\n", a, b );
-    swap_my ( &a, &b );
+//    swap_my ( &a, &b );
+    swap_my ( c, d );
     printf ( "after swap c = %d, and d = %d;\n", *c, *d );
     printf ( "after swap a = %d, and b = %d;\n\n", a, b );
 
