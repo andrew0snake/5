@@ -1,7 +1,7 @@
 #include <ctype.h>
 #include <stdio.h>
 
-#define SIZE 10
+#define SIZE 5
 
 int getint ( int *pn );
 int getch ( void );
@@ -20,7 +20,7 @@ void main () {
     
     for ( n = 0; n < SIZE && getint ( & array [ n ] ) != EOF; n++ ) {
         printf ( "in main n = %d;\n", n );
-        printf ( "in main check bufp = %d; buf [ %d ] = '%c' in char and %d in digit;\n", bufp, bufp, buf [ bufp ], buf [ bufp ] );
+        printf ( "in main check bufp = %d; buf [ bufp - 1 = %d ] = '%c' in char and %d in digit;\n", bufp, bufp - 1, buf [ bufp - 1 ], buf [ bufp - 1 ] );
         printf ( "-----------------------\n" );
     }
 
@@ -40,7 +40,7 @@ int getch ( void ) {
     if ( bufp > 0 ) {
         printf ( "In getch () bufp = %d; buf [ bufp - 1 = %d ] = %d in digit and '%c' in char;\n", bufp, bufp - 1, buf [ bufp - 1 ], buf [ bufp - 1 ] );
     } 
-    return ( ( bufp > 0 ) ? buf [ bufp -- ] : getchar () );
+    return ( ( bufp > 0 ) ? buf [ -- bufp ] : getchar () );
 
 }
 
