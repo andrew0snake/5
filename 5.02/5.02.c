@@ -94,6 +94,8 @@ int getint ( int *pn ) {
 int getfloat ( float *pn ) {
 
     float c = 0.0;
+    int sign = 0;
+    int step = 1;
 
     while ( isspace ( c = getch () ) ) {
     };
@@ -109,14 +111,26 @@ int getfloat ( float *pn ) {
         if ( ! isdigit ( c ) ) {
            ungetch ( ( sign == 1 ) ? 1 : ( - 1 ) );
            return 0;
-        }
-    }
+        };
+    };
  
     for ( *pn = 0; isdigit ( c ); c = getch () ) {
         *pn = 10 * *pn + ( c - '0' );
-    }
+    };
 
+    if ( c == '.' ) {
+//        c = getchar ();
+        while ( isdigit ( c = getch () ) ) {
+            *pn = 10 * *pn + ( c - '0' );
+            step = step * 10;
+        };    
+    };
 
+    *pn = *pn / step;
+
+    if ( c != EOF ) {
+        ungetch ( c );
+    };
 
     return c;
 
