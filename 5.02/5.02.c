@@ -18,10 +18,10 @@ void main () {
     int m = 0;
     int n = 0;
     int type = 0;
-    int array [ SIZE ];
+    float array [ SIZE ];
     
-    for ( n = 0; n < SIZE && ( type = getint ( & array [ n ] ) ) != EOF; n++ ) {
-        printf ( "array [ %d ] = %d%s;\n", n, type ? array [ n ] : type, type ? "" : " is not a number" );
+    for ( n = 0; n < SIZE && ( type = getfloat ( & array [ n ] ) ) != EOF; n++ ) {
+        printf ( "array [ %d ] = %f%s;\n", n, type ? array [ n ] : type, type ? "" : " is not a number" );
         printf ( "-----------------------\n" );
         if ( type == 0 ) {
             array [ n ] = EOF;
@@ -29,7 +29,7 @@ void main () {
     }
  
     for ( m = 0; m <= n && m < SIZE; m++ ) {
-        printf ( "array [ %d ] = %d; m = %d; n = %d;\n", m, array [ m ], m, n );   
+        printf ( "array [ %d ] = %f; m = %d; n = %d;\n", m, array [ m ], m, n );   
     };
 
     for ( k = 0; k < bufp; k++ ) {
@@ -93,9 +93,9 @@ int getint ( int *pn ) {
 
 int getfloat ( float *pn ) {
 
-    float c = 0.0;
+    int c = 0.0;
     int sign = 0;
-    int step = 1;
+    float step = 1.0;
 
     while ( isspace ( c = getch () ) ) {
     };
@@ -117,23 +117,21 @@ int getfloat ( float *pn ) {
     for ( *pn = 0; isdigit ( c ); c = getch () ) {
         *pn = 10 * *pn + ( c - '0' );
     };
-<<<<<<< HEAD
-    if ( c )
-
-=======
 
     if ( c == '.' ) {
-//        c = getchar ();
-        while ( isdigit ( c = getch () ) ) {
-            *pn = 10 * *pn + ( c - '0' );
-            step = step * 10;
+        c = getchar ();
+//        while ( isdigit ( c = getch () ) ) {
+        for ( step = 1.0; isdigit ( c ); c = getch () ) {
+            *pn = 10.0 * *pn + ( c - '0' );
+            step = step * 10.0;
         };    
     };
->>>>>>> f9641b38ca9c93833c03952cab7af42768b1894c
 
-    *pn = *pn / step;
+    *pn = *pn * sign / step;
 
-    if ( c != EOF ) {
+    printf ( "In the end of getfloat *pn = %f;and c = '%c' in char and %d in digit;\n", *pn, c, c );
+
+    if ( c != EOF && c != '\n' ) {
         ungetch ( c );
     };
 
