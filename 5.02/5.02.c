@@ -114,7 +114,9 @@ int getfloat ( float *pn ) {
  
     for ( *pn = 0; isdigit ( c ); c = getch () ) {
         *pn = 10 * *pn + ( c - '0' );
-    }
+    };
+    if ( c )
+
 
 
 
