@@ -6,35 +6,95 @@ void getline_my ( char * line );
 void strcat_my ( char * s, char * d );
 int strend_my ( char * s, char * t );
 int strlen_my ( char string1 [ SZ ] );
-void strncpy_my ( char * dest [ SZ * 2 ], char * src [ SZ ], int num );
+void strncpy_my ( char * dest , char * src , int num );
+int strncat_my ( char * dst, char * src, int n );
+void clear_string_my ( char * string );
+int strncmp ( char * dest, char * src, int n );
 
-//char line2 [ SZ ];
+//char line_src [ SZ ];
 
 void main () {
 
-    char line1 [ SZ ];
-    char line2 [ SZ ];
+    char line_dest [ SZ ];
+    char line_src [ SZ ];
     char num_s [ SZ ];
-    int len = 0;
+    char choise [ SZ ];
+    int len_s = 0;
+    int len_d = 0;
     int con = 0;
     int i = 0;
     int num = 0;
     int rez = 0;
+    int ch = 0;
 
-    printf ( "Input please string for copiyng:\n" );
-    getline_my ( & line2 );
-    printf ( "\nGetted string = %s;\n\n", line2 );
+    printf ( "Choose what you want to do:\n" );
+    printf ( "1. Test strncpy function.\n" );
+    printf ( "2. Test strncat function.\n" );
+    printf ( "3. Test strncmp function.\n" );
+    getline_my ( & choise );    
+    ch = atoi ( choise );
 
-    len = strlen_my ( line2 );
-    printf ( "lenght of string line2 = %d;\n\n", len );
+    switch ( ch ) {
+        case 1:
+            printf ( "\nInput please string for copiyng:" );
+            getline_my ( & line_src );
+            printf ( "\nGetted string = %s;\n\n", line_src );
 
-    printf ( "And now input please number of symbols of string2 that you want to place in line1:\n" );
-    getline_my ( & num_s );
-    num = atoi ( num_s );
-    printf ( "\nNumber of symbols = %d;\n\n", num );
+            len_s= strlen_my ( line_src );
+            printf ( "lenght of string line_src = %d;\n\n", len_s);
 
-    strncpy_my ( & line1, & line2, num);
-    printf ( "After strncpy_my destination string = \"%s\";\n", line1 );
+            printf ( "And now input please number of symbols of string2 that you want to place in line_dest:" );
+            getline_my ( & num_s );
+            num = atoi ( num_s );
+            printf ( "Number of symbols = %d;\n\n", num );
+
+            strncpy_my ( & line_dest, & line_src, num);
+            printf ( "After strncpy_my destination string = \"%s\";\n", line_dest );
+
+            clear_string_my ( & line_dest );
+            clear_string_my ( & line_src );
+            break;
+        case 2:
+            printf ( "Input please string for where concatenate:" );    
+            getline_my ( & line_dest );
+            printf ( "\nGetted string = %s;\n\n", line_dest );
+
+            printf ( "Input please string, which is for concatenate:" );    
+            getline_my ( & line_src );
+            printf ( "\nGetted string = %s;\n\n", line_src );
+
+            len_s= strlen_my ( line_src );
+            rez = strncat ( & line_dest, & line_src, len_s);
+            printf ( "After concatination destination string = \"%s\";\n", line_dest );
+
+            break;
+        case 3:
+            printf ( "Input please first string for comparison:" );    
+            getline_my ( & line_src );
+            printf ( "\nGetted string = %s;\n\n", line_src );
+
+            printf ( "Input please second for where comparison:" );    
+            getline_my ( & line_dest );
+            printf ( "\nGetted string = %s;\n\n", line_dest );
+
+            printf ( "And now input please number of symbols of strings that you want to compare:" );
+            getline_my ( & num_s );
+            num = atoi ( num_s );
+            printf ( "Number of symbols = %d;\n\n", num );
+
+            len_s= strlen_my ( line_src );
+            len_d= strlen_my ( line_dest );
+            
+            if ( len_s != 0 && len_d != 0 ) {
+                rez = strncmp ( & line_dest, & line_src, num );
+            }
+            else {
+                printf ( "One of compares string is empty.\n" );
+            }
+            break;
+        default :
+            printf ( "Invalid value.\n" );
+    }
 
 }
 
@@ -47,7 +107,7 @@ void getline_my ( char * line )
 
     for ( i = 0; ( ( c = getchar () ) != EOF ) && c != '\n' && i < SZ; line ++, i++ ){
         * line = c;
-        printf ( "line [ %d ] = %c; line = %p;\n", i, * line, line );
+//        printf ( "line [ %d ] = %c; line = %p;\n", i, * line, line );
     };
     * line ++ = '\0';
 }
@@ -115,7 +175,7 @@ int strlen_my ( char string1 [ SZ ] ) {
     return n;
 }
 
-void strncpy_my ( char * dst [ SZ ], char * src [ SZ ], int num ) {
+void strncpy_my ( char * dst , char * src , int num ) {
 
     int i = 0;
     int len_s = 0;
@@ -127,8 +187,8 @@ void strncpy_my ( char * dst [ SZ ], char * src [ SZ ], int num ) {
     };
 
     len_s = strlen_my ( src );
-    printf ( "Length of source string ( len_s ) = %d;\n", len_s );
-    printf ( "Length of destination string ( SZ ) = %d;\n", SZ );
+//    printf ( "Length of source string ( len_s ) = %d;\n", len_s );
+//    printf ( "Length of destination string ( SZ ) = %d;\n", SZ );
 
     if ( num > len_s ) {
         printf ( "Warning: number of returning symbols is more than same string.\n" );
@@ -138,52 +198,73 @@ void strncpy_my ( char * dst [ SZ ], char * src [ SZ ], int num ) {
     exit = 0;
 
     for ( i = 0; i < num && exit == 0; i++ ) {
+//        printf ( "before checking i = %d; num = %d;\n", i, num );
         if ( i == ( SZ - 2 ) ) {
-            printf ( "i = %d == len_d - 1 = %d;\n", i, len_d - 1 );
+//            printf ( "i = %d == len_d - 1 = %d;\n", i, len_d - 1 );
             exit = 1;
-            * dst [ i ] = * src [ i ];
+            * dst ++ = * src ++;
             i++;
-            * dst [ i ] = '\0';
+            * dst  = '\0';
         }
         else {
             if ( i == len_s - 1 ) {
+//                printf ( " i = len_s - 1 = %d;\n", i );
                 exit = 1;
-                * dst [ i ] = * src [ i ];
-                i++;
-                * dst [ i ] = '\0'; 
-            }
-            else {
-                printf ( "here i = %d; \* dst [ i = %d ] = %c in char and %p in pointer;\n",i, i, * src [ i ], * src [ i ] );
                 * dst ++ = * src ++;
-            }
-        }
-        printf ( "step %d;\n", i );
-    }
-
-/*    for ( i = 0; i < num && exit == 0; i++ ) {
-        printf ( "i = %d; len_d - 1 = %d;\n", i, len_d - 1 );
-        if ( i == ( len_d - 1 ) ) {
-            printf ( "i = %d; len_d - 1 = %d;\n", i, len_d - 1 );
-            exit = 1;
-            printf ( "i is eq ( len_d = %d ) - 1 = %d;\n", len_d, i );
-            * dst [ i ] = * src [ i ];
-            i++;
-            *dst [ i ] = '\0';
-        }
-        else {
-            if ( i == len_s ) {
-                exit = 1;
-                * dst [ i ] = * src [ i ];
                 i++;
-                * dst [ i ] = '\0';
+                * dst = '\0';
             }
             else {
-                * dst [ i ] = * src [ i ];
-            };
-        };         
+//                printf ( "here i = %d; * src  = \"%c\" in char and %p in pointer; \n",i, * src , * src );
+                * dst ++ = * src ++;
+//                printf ( "* dst = \"%c\" in char and %p in pointer;\n" );            
+           };
+        };
+//        printf ( "step %d;\n", i );
     };
-*/
 
 }
 
+int strncat_my ( char * dst, char * src, int n ) {
+
+    int len_s = 0;
+    int len_d = 0;
+
+    len_s = strlen_my ( src );
+    len_d = strlen_my ( dst );
+
+    if ( len_d == 0 ) {
+        strncpy ( & dst, & src, len_s );
+        return 0;
+    }
+    else {
+        while ( * dst ++ != '\0' ) {
+        };
+        *dst --;
+        if ( len_s == 0 ) {
+            return 0;
+        } 
+        else {
+            while ( ( * dst ++ = * src ++ ) != '\0' ) {
+            };
+        };
+    };
+
+}
+
+
+void clear_string_my ( char * string ) {
+
+    int i = 0;
+
+    for ( i = 0; i < SZ; i++ ) {
+        * string ++ = 0;
+    }
+}
+
+int strncmp ( char * dest, char * src, int n ) {
+
+
+
+}
 
