@@ -9,7 +9,7 @@ int strlen_my ( char string1 [ SZ ] );
 void strncpy_my ( char * dest , char * src , int num );
 int strncat_my ( char * dst, char * src, int n );
 void clear_string_my ( char * string );
-int strncmp ( char * dest, char * src, int n );
+int strncmp_my ( char * dest, char * src, int n );
 
 //char line_src [ SZ ];
 
@@ -86,7 +86,18 @@ void main () {
             len_d= strlen_my ( line_dest );
             
             if ( len_s != 0 && len_d != 0 ) {
-                rez = strncmp ( & line_dest, & line_src, num );
+                rez = strncmp_my ( & line_dest, & line_src, num );
+                if ( rez == 0 ) {
+                    printf ( "Strings are equal. Rez of strncmp_my = %d;\n", rez );
+                }
+                else {
+                    if ( rez > 0 ) {
+                        printf ( "First string is more, than second;\n" );
+                    } 
+                    else {
+                        printf ( "Second string is more, than first;\n" );
+                    }
+                }
             }
             else {
                 printf ( "One of compares string is empty.\n" );
@@ -262,9 +273,23 @@ void clear_string_my ( char * string ) {
     }
 }
 
-int strncmp ( char * dest, char * src, int n ) {
+int strncmp_my ( char * dest, char * src, int n ) {
 
+    int i = 0;
 
+    while ( ( * dest == * src ) != '\0' && i < n && i < SZ - 1 ) {
+        i++;
+        * dest ++;
+        * src ++;
+    }; 
 
+    if ( * dest != * src ) {
+        return ( * src - * dest );
+    }
+    else {
+        if ( i == n || i == SZ - 1 ) {
+            return 0;
+        };
+    };
 }
 
