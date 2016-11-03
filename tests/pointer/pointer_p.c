@@ -4,17 +4,20 @@
 
 void f1 ( char * s1 );
 void f2 ( char * s2 );
-
+void f3 ( char * s1 );
 void main () {
 
     char string1 [ SZ ] = "123qweasdzxc";
 
 //    f1 ( & string1 );
 
-    f2 ( & string1 );
+//    f2 ( & string1 );
 
 //    f1 ( & string1 );
 
+    printf ( "before f3 strintg1 = %s;\n", string1 );
+    f3 ( & string1 );
+    printf ( "after f3 string1 = %s;\n", string1 );
 }
 
 void f1 ( char * s1 ) {
@@ -58,4 +61,19 @@ void f2 ( char * s2 ) {
     printf ( "end of f2.\n" );
 
 }
+
+
+void f3 ( char * string1 ) {
+
+    int i = 0;
+
+    for ( i = 0; i < 5; i ++ ) {
+        printf ( "string1 [ %d ] = %c;\n", i, string1 [ i ] );
+        string1 [ i ] = string1 [ i ] + 2;
+        printf ( "after string1 [ %d ] = %c;\n", i, string1 [ i ] );
+    }
+
+
+}
+
 

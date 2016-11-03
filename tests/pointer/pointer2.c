@@ -71,6 +71,11 @@ void main () {
         printf ( "p1 is earlier than p2;\n");
     }
 
+    printf ( "arr1 [ 2 ] = %d in digital;\n", arr1 [ 2 ]  );
+    p1 = & arr1 [ 2 ];
+    printf ( " * p1 = arr1 [ 2 ] = %d in digital; and * p1 = %p as pointer;\n", * p1, * p1 );
+    printf ( "arr1 [ 2 ] = %d; * ( arr1 + 2 ) = %d;\n", arr1 [ 2 ], * ( arr1 + 2 ) );
+
 }
 
 int strlen_other ( char * s ) {
