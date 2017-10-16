@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX 100
+#define MAX 30
 #define TABSIZE 4
 
 char isnumber ( char * string );
@@ -9,6 +9,7 @@ void detab ( char * detabbed_line, char * source_line );
 void full_tabstops ( char * array, int argc, char * argv [] );    
 int tabpos ( int pos, char * line );
 void entab ( char * entabbed_line, char * source_line, int argc );
+void print_line ( char * line );
 
 char tabline [ MAX ];
 
@@ -31,8 +32,8 @@ int main ( int argc, char * argv [] ) {
         printf ( "getted tabstops [ %d ]:'%d';\n", i, tabline [ i ] );
     }
     while ( ( rez = getline_my ( tmp_line ) ) != 0 ) {
-        detab ( dest_line, tmp_line );
-        printf ( "detabbed_line = '%s';\n", dest_line );
+        entab ( dest_line, tmp_line, argc );
+        printf ( "entabbed_line = '%s';\n", dest_line );
         for ( i = 0; dest_line [ i ] != '\0'; i ++ ) {
             printf ( "dest_line [ %d ] = '%c' as char and %d as digit;\n", i, dest_line [ i ], dest_line [ i ] );
         }
@@ -45,10 +46,43 @@ void entab ( char * en_line, char * s_line, int argc ) {
 
     int i = 0;
     int j = 0;
+    char pos = 0;
+    char space = 0;
     char size = 0;
+    char check = 0;
+    char start = 0;
+
+    print_line ( s_line );
 
     while ( s_line [ i ] != '\0' ) {
-        
+        if ( s_line [ i ] == ' ' ) {
+            pos = i;
+            space = start;
+            check = 0;
+            while ( space < MAX && ! tabpos ( ++ space, tabline ) ) {
+                if ( s_line [ ++ pos ] == ' ' ) {
+                    check = 0;
+                    printf ( "pos = %d;\n", pos );
+                }
+                else {
+                    check = 1;
+                }
+            } 
+            if ( check == 0 ) {
+                en_line [ j ++ ] = '\t';
+                i = pos + 1;
+                start = space;
+                printf ( "in check after cycle i = %d;\n", i );
+            }
+            else {
+                en_line [ j ++ ] = s_line [ i ++ ]; 
+                space = start;
+            }
+        }    
+        else {
+            en_line [ j ++ ] = s_line [ i ++ ];
+            printf ( "s_line [ %d ] = '%c' and %d;\n", i - 1, s_line [ i - 1 ], s_line [ i - 1 ] );
+        }
     }
 
 }
@@ -158,37 +192,14 @@ int getline_my ( char * line ) {
     return i;
 }
 
-void entab ( int offset_size, char * line ) {
-    
-    int count = 0;
-    int offset = 0;
+void print_line ( char * line ) {
+
     int i = 0;
 
-
-    while ( * line != '\0' && * line != '\n' ) {
-        if ( * line == ' ' ) {
-            count ++;
-            if ( count == offset_size ) {
-                * ( line - offset_size + 1 ) = '\t';
-                * line ++;
-                while ( * line != '\0' ) {
-                    * ( line - offset_size + 1 ) = * line;
-                    * line ++;
-                    offset ++;
-                }
-                *  ( line - offset_size + 1 ) = '\0';
-                offset += offset_size;
-                while ( offset > 0 ) {
-                    * line --;
-                    offset --;    
-                }
-                count = 0;
-            }
-        }
-        else {
-            count = 0;
-        }
-        * line ++; 
+    while ( line [ i ] != '\0' ) {
+        printf ( "line [ %d ] = '%c' and %d;\n", i, line [ i ], line [ i ] );
+        i ++;
     }
+
 
 }

@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <strings.h>
 
+char * array [ 10 ];
 
-int getline_my ( char * line );
+void getline_my ( char * line );
+void clear_line ( char * line );    
 
 
 int main () {
@@ -9,28 +12,39 @@ int main () {
     int i = 0;
     char line [ 100 ];
 
-//    i = getline_my ( line );
-    i = getline_my ( & line [ 0 ] );    
-
-    printf ( "getted line:'%s'\n", line );
+    for ( i = 0; i < 5; i++ ) {    
+        getline_my ( & array );    
+        printf ( "getted line '%s';\n", array [ i ] );        
+    }
 
     return 0;
 
 }
 
-int getline_my ( char * line ) {
+void getline_my ( char line [ 100 ] ) {
 
     char c = 0;
+    int i = 0;
 
     while ( ( c = getchar () ) != '\0' && c != EOF && c != '\n' ) {
-        * line = c;
-        printf ( "c = '%c'; * line = '%c';\n", * line );
-        * line ++;
+        * line [ i ]= c;
+        printf ( "c = '%c'; * line = '%c';\n", * line [ i ] );
+        i ++;
     }
 
     if ( c == '\n' || c == EOF ) {
 //        * line ++ = '\n';
         * line = '\0';
     }
+
+}
+
+void clear_line ( char * line ) {
+
+    int i = 0;
+
+    for ( i = 0; i < 100; i ++ ) {
+        * line ++ = 0;
+    } 
 
 }
