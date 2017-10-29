@@ -19,12 +19,17 @@ void parse_input ( int argc, char * argv [] ) {
 
 //    char c = 0;
     int i = 0;
+<<<<<<< HEAD
     char exit = 1;
+=======
+    int j = 0;
+>>>>>>> b87bc892cc4410d05f490cc3ceb537f1b7904cb0
     char field [ LIM ];
 
     while ( argc > 0 ) {        
 //        if ( ( * ++ argv ) [ 0 ] == '-' ) {
         if ( * argv [ 0 ] == '\"' ) {
+<<<<<<< HEAD
             printf ( "* argv [ 0 ] = %c;--\n", * argv [ 0 ] );
             printf ( "* argv [ 1 ] = %c;--\n", ( * argv + 1 ) [ 0 ] );
 //            for ( i = 0, j = 1; i < LIM && * argv [ j ] != '\"'; i ++, j ++ ) {                
@@ -41,6 +46,17 @@ void parse_input ( int argc, char * argv [] ) {
             * argv ++;
             argc --;
 //            printf ( "field = '%s';\n", field );
+=======
+            printf ( "*  argv [ 0 ] = %c;\n", * argv [ 0 ] );
+            for ( i = 0, j = 1; i < LIM && * argv [ j ] != '\"'; i ++, j ++ ) {                
+                printf ( "* argv [ %d ] = %c;\n", j, * argv [ j ] );
+                field [ i ] = * argv [ j ];
+                printf ( "field [ %d ] = %c;\n", i, field [ i ] );
+            }
+            * argv ++;
+            argc --;
+            printf ( "field = '%s';\n", field );
+>>>>>>> b87bc892cc4410d05f490cc3ceb537f1b7904cb0
         }
         else {    
             printf ( "* argv [ 0 ] = %c;\n", * argv [ 0 ] );
