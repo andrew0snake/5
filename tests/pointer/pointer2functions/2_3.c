@@ -23,13 +23,13 @@ int main () {
     }
 
     printf ( "\narray_size_in_bytes = %d;\n\n", array_size_in_bytes);
-    printf ( "size_of_first_element_in_bytes= %d;\n\n", size_of_first_element_in_bytes);
-    printf ( "amount_of_array_elements= %d;\n\n", amount_of_array_elements);
+    printf ( "size_of_first_element_in_bytes = %d;\n\n", size_of_first_element_in_bytes);
+    printf ( "amount_of_array_elements = %d;\n\n", amount_of_array_elements);
 
     qsort ( arr, n, sizeof ( int ), compare );
     
     for ( i = 0; i < amount_of_array_elements; i ++ ) {
-        printf ( "arr [ %d ] = %d;\n", i, arr [ i ] );
+        printf ( "arr [ %d ] = %2d;\n", i, arr [ i ] );
     }
 
     return 0;
